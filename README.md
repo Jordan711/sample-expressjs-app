@@ -1,2 +1,2 @@
 # sample-expressjs-app
-Experimenting with Node with Express
+Experimenting with Node and ExpressJs
