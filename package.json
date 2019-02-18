@@ -4,6 +4,7 @@
   "description": "A sample app to learn web dev with express",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0"
   },

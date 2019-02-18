@@ -1,0 +1,13 @@
+<h1> Lucky Number Generator </h1>
+<p>Your lucky number is: {{number}}</p>
+
+<form action='lucky-number' method="post">
+  <label for='first'>Lower Range</label>
+  <input id='first' name='lower' type='text'>
+
+  <label for='last'>Upper Range</label>
+  <input id='last' name='upper' type='text'>
+
+  <input type='submit' value='Generate'>
+</form>
+<p>{{errorMessage}}</p>
