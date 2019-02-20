@@ -28,10 +28,17 @@ app.get('/lucky-number', function(req, res){
 });
 
 app.post('/lucky-number', function(req, res){
-  if (isNaN(req.body.lower) || isNaN(req.body.upper)) {
+  if (isNaN(req.body.lower) || isNaN(req.body.upper) || req.body.upper.length === 0 || req.body.lower.length === 0) {
     res.render('lucky-number', {
       pageTitle: 'Lucky Number',
-      errorMessage: 'Please Enter valid numbers :((('
+      errorMessage: 'Please Enter valid numbers',
+      luckyNumActive: 'active'
+    });
+  } else if (parseInt(req.body.lower) > parseInt(req.body.upper)){
+    res.render('lucky-number', {
+      pageTitle: 'Lucky Number',
+      errorMessage: 'Invalid Number Range',
+      luckyNumActive: 'active'
     });
   } else {
     var lower = parseInt(req.body.lower);
