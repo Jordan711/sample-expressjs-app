@@ -12,14 +12,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.get('/', function(req, res) {
-  res.render('index', {pageTitle: 'HOMEPAGE'});
+  res.render('index', {
+    pageTitle: 'HOMEPAGE',
+    homePageActive: 'active'
+  });
 });
 
 app.get('/lucky-number', function(req, res){
   var number = Math.floor(Math.random() * 1000);
   res.render('lucky-number', {
     pageTitle: 'Lucky Number',
-    number: number
+    number: number,
+    luckyNumActive: 'active'
   });
 });
 
@@ -36,7 +40,8 @@ app.post('/lucky-number', function(req, res){
 
     res.render('lucky-number', {
       pageTitle: 'Lucky Number',
-      number: number
+      number: number,
+      luckyNumActive: 'active'
     });
   }
 
