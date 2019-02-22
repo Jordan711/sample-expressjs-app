@@ -54,8 +54,13 @@ app.post('/lucky-number', function(req, res){
 
 });
 
-app.get('*', function(req, res){
+app.use(function(req, res, next){
   res.render('404');
+});
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error!');
 });
 
 app.listen(port, () => console.log('Listening on port: ' + port));
