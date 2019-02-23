@@ -9,6 +9,7 @@ var port = 8080;
 app.engine('handlebars', expHandlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(__dirname + '/public'));
 
 
 app.get('/', function(req, res) {
