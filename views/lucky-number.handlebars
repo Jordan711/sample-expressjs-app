@@ -1,13 +1,42 @@
-<h1> Lucky Number Generator </h1>
-<p>Your lucky number is: {{number}}</p>
+<link rel='stylesheet' href='css/lucky-number.css' />
 
-<form action='lucky-number' method="post">
-  <label for='first'>Lower Range</label>
-  <input id='first' name='lower' type='text'>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-8 col-md-offset-2 number-form-area'>
+      <h1> Lucky Number Generator </h1>
+      <p>Your lucky number is: </p>
+      <h1><span class='label label-success'>{{number}}</span></h1>
 
-  <label for='last'>Upper Range</label>
-  <input id='last' name='upper' type='text'>
+      <hr />
 
-  <input type='submit' value='Generate'>
-</form>
-<p>{{errorMessage}}</p>
+      <h4>Generate your own lucky number! </h4>
+      <p>Specify a range for the number: </p>
+      <br />
+
+      <form action='lucky-number' method="post">
+        <div class='form-group row'>
+          <label for='first' class='col-form-label col-md-4 text-right control-label'>
+            Min Value
+          </label>
+          <div class='col-md-5'>
+            <input id='first' class='form-control'  name='min' type='text'>
+          </div>
+        </div>
+
+        <div class='form-group row'>
+          <label for='last' class='col-form-label col-md-4 text-right'>
+            Max Value
+          </label>
+          <div class='col-md-5'>
+            <input id='last' class='form-control'  name='max' type='text'>
+          </div>
+        </div>
+
+        <br />
+
+        <input type='submit' class='btn btn-primary' value='Generate'>
+      </form>
+      <span class='label label-danger'>{{errorMessage}}</span>
+    </div>
+  </div>
+</div>
