@@ -55,6 +55,13 @@ app.post('/lucky-number', function(req, res){
 
 });
 
+app.get('/about', function(req, res){
+  res.render('about', {
+    pageTitle: 'About',
+    aboutActive: 'active'
+  });
+});
+
 app.use(function(req, res, next){
   res.render('404');
 });
