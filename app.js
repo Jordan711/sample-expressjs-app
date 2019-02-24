@@ -29,22 +29,22 @@ app.get('/lucky-number', function(req, res){
 });
 
 app.post('/lucky-number', function(req, res){
-  if (isNaN(req.body.lower) || isNaN(req.body.upper) || req.body.upper.length === 0 || req.body.lower.length === 0) {
+  if (isNaN(req.body.min) || isNaN(req.body.max) || req.body.max.length === 0 || req.body.min.length === 0) {
     res.render('lucky-number', {
       pageTitle: 'Lucky Number',
       errorMessage: 'Please Enter valid numbers',
       luckyNumActive: 'active'
     });
-  } else if (parseInt(req.body.lower) > parseInt(req.body.upper)){
+  } else if (parseInt(req.body.min) > parseInt(req.body.max)){
     res.render('lucky-number', {
       pageTitle: 'Lucky Number',
       errorMessage: 'Invalid Number Range',
       luckyNumActive: 'active'
     });
   } else {
-    var lower = parseInt(req.body.lower);
-    var upper = parseInt(req.body.upper);
-    var number = Math.floor(Math.random() * (upper - lower + 1)) + lower;
+    var min = parseInt(req.body.min);
+    var max = parseInt(req.body.max);
+    var number = Math.floor(Math.random() * (max - min + 1)) + min;
 
     res.render('lucky-number', {
       pageTitle: 'Lucky Number',
