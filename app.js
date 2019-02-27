@@ -62,6 +62,13 @@ app.get('/about', function(req, res){
   });
 });
 
+app.get('/guestbook', function(req, res){
+  res.render('guestbook', {
+    pageTitle: 'Guestbook',
+    guestbookActive: 'active'
+  });
+});
+
 app.use(function(req, res, next){
   res.render('404');
 });
