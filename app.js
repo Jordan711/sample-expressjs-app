@@ -69,6 +69,13 @@ app.get('/guestbook', function(req, res){
   });
 });
 
+app.get('/courses', function(req, res){
+  res.render('courses', {
+    pageTitle: 'Courses',
+    coursesActive: 'active'
+  });
+});
+
 app.use(function(req, res, next){
   res.render('404');
 });
