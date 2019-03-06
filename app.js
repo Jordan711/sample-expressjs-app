@@ -62,6 +62,13 @@ app.get('/about', function(req, res){
   });
 });
 
+app.get('/games', function(req, res){
+  res.render('games', {
+    pageTitle: 'Games Menu',
+    gamesActive: 'active'
+  });
+});
+
 app.get('/guestbook', function(req, res){
   res.render('guestbook', {
     pageTitle: 'Guestbook',
