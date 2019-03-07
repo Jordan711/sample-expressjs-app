@@ -4,12 +4,15 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const expHandlebars = require('express-handlebars');
+const gamesRouter = require('./routers/games');
 var port = 8080;
 
 app.engine('handlebars', expHandlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
+
+app.use('/games', gamesRouter);
 
 
 app.get('/', function(req, res) {
@@ -59,13 +62,6 @@ app.get('/about', function(req, res){
   res.render('about', {
     pageTitle: 'About',
     aboutActive: 'active'
-  });
-});
-
-app.get('/games', function(req, res){
-  res.render('games', {
-    pageTitle: 'Games Menu',
-    gamesActive: 'active'
   });
 });
 
