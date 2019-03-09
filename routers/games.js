@@ -7,4 +7,11 @@ games.get('/', function(req, res) {
   });
 });
 
+games.get('/first-game', function(req, res) {
+  res.render('games/first-game', {
+    pageTitle: 'First Game',
+    gamesActive: 'active'
+  });
+});
+
 module.exports = games;
