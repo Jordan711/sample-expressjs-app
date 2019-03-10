@@ -104,8 +104,18 @@
       drawPaddle();
 
       //If the ball reaches the top or bottom edge
-      if (y + dy > canvas.height - ballRadius || y + dy < ballRadius){
+      if ( y + dy < ballRadius){
         dy = -dy;
+      } else if (y + dy > canvas.height - ballRadius) {
+        //Ball's x coords are within paddle width range
+        if (x > paddleX && x < paddleX + paddleWidth) {
+          dy = -dy;
+        }
+        else {
+          alert('Ball has hit Rock Bottom. Game Over! Try Again!');
+          document.location.reload();
+          clearInterval(interval);
+        }
       }
 
       //Bounce off the left and right side of wall
@@ -114,16 +124,16 @@
       }
 
       if (rightPressed && paddleX < canvas.width - paddleWidth) {
-        paddleX += 7;
+        paddleX += 4;
       }
       else if (leftPressed && paddleX > 0) {
-        paddleX -= 7;
+        paddleX -= 4;
       }
 
       x += dx;
       y += dy;
     }
 
-    setInterval(draw, 10);
+    var interval = setInterval(draw, 10);
   </script>
 </div>
