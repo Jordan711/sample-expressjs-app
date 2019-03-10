@@ -51,9 +51,11 @@
     var dx = 2;
     var dy = -2;
 
+    var ballRadius = 10;
+
     function drawBall(){
       ctxTwo.beginPath();
-      ctxTwo.arc(x, y, 10, 0, Math.PI*2);
+      ctxTwo.arc(x, y, ballRadius, 0, Math.PI*2);
       ctxTwo.fillStyle = "#0095DD";
       ctxTwo.fill();
       ctxTwo.closePath();
@@ -63,6 +65,17 @@
       //x,y coords of top left and bottom right
       ctxTwo.clearRect(0, 0, canvas.width, canvas.height);
       drawBall();
+
+      //If the ball reaches the top or bottom edge
+      if (y + dy > canvas.height - ballRadius || y + dy < ballRadius){
+        dy = -dy;
+      }
+
+      //Bounce off the left and right side of wall
+      if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+      }
+
       x += dx;
       y += dy;
     }
