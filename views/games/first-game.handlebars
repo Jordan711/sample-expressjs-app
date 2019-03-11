@@ -81,8 +81,10 @@
           dy = -dy;
         }
         else {
-          alert('Ball has hit Rock Bottom. Game Over! Try Again!');
-          document.location.reload();
+          ctx.beginPath();
+          ctx.font = "50px Arial";
+          ctx.fillText('Game Over', 110, 100);
+          ctx.closePath();
           clearInterval(interval);
         }
       }
