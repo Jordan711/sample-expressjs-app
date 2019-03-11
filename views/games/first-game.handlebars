@@ -11,9 +11,8 @@
 
   <script>
 
-    /* Exercise two for animations */
     var canvas = document.getElementById('myCanvas');
-    var ctxTwo = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d');
 
     var x = canvas.width/2;
     var y = canvas.height-30;
@@ -52,24 +51,24 @@
     }
 
     function drawBall(){
-      ctxTwo.beginPath();
-      ctxTwo.arc(x, y, ballRadius, 0, Math.PI*2);
-      ctxTwo.fillStyle = "#0095DD";
-      ctxTwo.fill();
-      ctxTwo.closePath();
+      ctx.beginPath();
+      ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+      ctx.fillStyle = "#0095DD";
+      ctx.fill();
+      ctx.closePath();
     }
 
     function drawPaddle() {
-      ctxTwo.beginPath();
-      ctxTwo.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-      ctxTwo.fillStyle = "#0095DD";
-      ctxTwo.fill();
-      ctxTwo.closePath();
+      ctx.beginPath();
+      ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+      ctx.fillStyle = "#0095DD";
+      ctx.fill();
+      ctx.closePath();
     }
 
     function draw() {
       //x,y coords of top left and bottom right
-      ctxTwo.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawBall();
       drawPaddle();
 
