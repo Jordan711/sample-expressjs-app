@@ -5,48 +5,18 @@
 </style>
 
 <div class='container'>
-  <canvas id='shapes' width='480' height='320'></canvas>
-
-  <br />
 
   <canvas id='myCanvas' width='480' height='320'></canvas>
 
 
   <script>
-    /* Exercise One for drawing shapes */
-    var canvas = document.getElementById('shapes');
-    var ctx = canvas.getContext('2d');
-
-    //Draw a square
-    ctx.beginPath();
-    //Coords of top left corner, width and height
-    ctx.rect(20, 40, 50, 50);
-    ctx.fillStyle = '#FF0000';
-    ctx.fill();
-    ctx.closePath();
-
-    //Draw a circle
-    ctx.beginPath();
-    //x and y coordinates, arc radius, angle to start and finish drawing circle
-    //false is clockwise, true is counter clockwise
-    ctx.arc(240, 160, 20, 0, Math.PI*2, false);
-    ctx.fillStyle = 'green';
-    ctx.fill();
-    ctx.closePath();
-
-    //Draw rectangle with coloured border
-    ctx.beginPath();
-    ctx.rect(160, 10, 100, 40);
-    ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
-    ctx.stroke();
-    ctx.closePath();
 
     /* Exercise two for animations */
-    var canvasTwo = document.getElementById('myCanvas');
-    var ctxTwo = canvasTwo.getContext('2d');
+    var canvas = document.getElementById('myCanvas');
+    var ctxTwo = canvas.getContext('2d');
 
-    var x = canvasTwo.width/2;
-    var y = canvasTwo.height-30;
+    var x = canvas.width/2;
+    var y = canvas.height-30;
 
     var dx = 2;
     var dy = -2;
