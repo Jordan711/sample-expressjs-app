@@ -15,6 +15,8 @@
     var canvas = document.getElementById('myCanvas');
     var ctx = canvas.getContext('2d');
 
+    var score = 0;
+
     //x and y coords of the ball
     var x = canvas.width/2;
     var y = canvas.height-30;
@@ -84,6 +86,7 @@
             if (x > b.x && x < b.x + brickWidth) {
               if (y > b.y && y < b.y + brickHeight) {
                 dy = -dy;
+                score++;
                 b.hitStatus = -1;
               }
             }
@@ -93,12 +96,19 @@
             if (x > b.x && x < b.x + brickWidth) {
               if (y > b.y && y < b.y + brickHeight) {
                 dy = -dy;
+                score++;
                 b.hitStatus = 0;
               }
             }
           }
         }
       }
+    }
+
+    function drawScore() {
+      ctx.font = '16px Arial';
+      ctx.fillStyle = '#0095DD';
+      ctx.fillText("Score: "+score, 8, 20);
     }
 
     function drawBall(){
@@ -150,6 +160,7 @@
       drawPaddle();
       collisionDetection();
       drawBricks();
+      drawScore();
 
       //If the ball reaches the top or bottom edge
       if ( y + dy < ballRadius){
@@ -170,6 +181,18 @@
           ctx.closePath();
           clearInterval(interval);
         }
+      }
+
+      if (score == (2 * brickRowCount * brickColumnCount)) {
+        ctx.beginPath();
+        ctx.font = "50px Arial";
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 10;
+        ctx.strokeText('Yay you win!', 110, 100);
+        ctx.fillStyle = "Green";
+        ctx.fillText('Yay you win!', 110, 100);
+        ctx.closePath();
+        clearInterval(interval);
       }
 
       //Bounce off the left and right side of wall
