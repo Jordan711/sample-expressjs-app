@@ -27,6 +27,7 @@
     var paddleHeight = 10;
     var paddleWidth = 75;
     var paddleX = (canvas.width-paddleWidth)/2;
+    var paddleY = canvas.height-paddleHeight
 
     var leftPressed = false;
     var rightPressed = false;
@@ -44,7 +45,7 @@
     for (var c = 0; c < brickColumnCount; c++){
       bricks[c] = [];
         for (var r = 0; r < brickRowCount; r++) {
-          bricks[c][r] = { x: 0, y: 0};
+          bricks[c][r] = { x: 0, y: 0, notHit: 1};
         }
     }
 
@@ -78,10 +79,13 @@
         for (var r = 0; r < brickRowCount; r++) {
           var b = bricks[c][r];
 
-          //Turn opposite direction if ball hits brick
-          if (x > b.x && x < b.x + brickWidth) {
-            if (y > b.y && y < b.y + brickHeight) {
-              dy = -dy;
+          if (b.notHit == 1) {
+            //Turn opposite direction if ball hits brick
+            if (x > b.x && x < b.x + brickWidth) {
+              if (y > b.y && y < b.y + brickHeight) {
+                dy = -dy;
+                b.notHit = 0;
+              }
             }
           }
         }
@@ -98,7 +102,7 @@
 
     function drawPaddle() {
       ctx.beginPath();
-      ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+      ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
       ctx.fillStyle = "#0095DD";
       ctx.fill();
       ctx.closePath();
@@ -107,18 +111,20 @@
     function drawBricks(){
       for (var c = 0; c < brickColumnCount; c++) {
         for (var r = 0; r < brickRowCount; r++) {
-          var brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
-          var brickY = (r * (brickHeight + brickPadding)) + brickOffSetTop;
+          if (bricks[c][r].notHit == 1) {
 
-          bricks[c][r].x = brickX;
-          bricks[c][r].y = brickY;
+            var brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+            var brickY = (r * (brickHeight + brickPadding)) + brickOffSetTop;
 
-          ctx.beginPath();
-          ctx.rect(brickX, brickY, brickWidth, brickHeight);
-          ctx.fillStyle = "#AA5733";
-          ctx.fill();
-          ctx.closePath();
+            bricks[c][r].x = brickX;
+            bricks[c][r].y = brickY;
 
+            ctx.beginPath();
+            ctx.rect(brickX, brickY, brickWidth, brickHeight);
+            ctx.fillStyle = "#AA5733";
+            ctx.fill();
+            ctx.closePath();
+          }
         }
       }
     }
