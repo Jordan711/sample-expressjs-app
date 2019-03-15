@@ -9,6 +9,7 @@
   <canvas id='myCanvas' width='480' height='320'></canvas>
 
   <button onclick='restartGame();'>Restart Game </button>
+  <button onclick='pauseGame();' id='pause'>Pause Game </button>
 
   <script>
 
@@ -42,6 +43,8 @@
     var brickOffSetTop = 30;
     var brickOffsetLeft = 30;
 
+    var paused = false;
+
     var bricks = [];
 
     for (var c = 0; c < brickColumnCount; c++){
@@ -58,6 +61,18 @@
 
     function restartGame() {
       document.location.reload();
+    }
+
+    function pauseGame() {
+      if (paused) {
+        interval = setInterval(draw, 10);
+        document.getElementById('pause').innerHTML = 'Pause Game';
+        paused = false;
+      } else {
+        clearInterval(interval);
+        document.getElementById('pause').innerHTML = 'Play';
+        paused = true;
+      }
     }
 
     function mouseMoveHandler(e) {
