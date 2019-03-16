@@ -27,6 +27,8 @@
 
     var ballRadius = 10;
 
+    var playerLives = 3;
+
     var paddleHeight = 10;
     var paddleWidth = 75;
     var paddleX = (canvas.width-paddleWidth)/2;
@@ -129,6 +131,12 @@
       }
     }
 
+    function drawLives() {
+      ctx.font = '16px Arial';
+      ctx.fillStyle = '#0095DD';
+      ctx.fillText('Lives: ' + playerLives, canvas.width-65, 20);
+    }
+
     function drawScore() {
       ctx.font = '16px Arial';
       ctx.fillStyle = '#0095DD';
@@ -184,6 +192,7 @@
       drawPaddle();
       collisionDetection();
       drawBricks();
+      drawLives();
       drawScore();
 
       //If the ball reaches the top or bottom edge
@@ -195,15 +204,25 @@
           dy = -dy;
         }
         else {
-          ctx.beginPath();
-          ctx.font = "50px Arial";
-          ctx.strokeStyle = 'black';
-          ctx.lineWidth = 10;
-          ctx.strokeText('Game Over', 110, 100);
-          ctx.fillStyle = "#FF2211";
-          ctx.fillText('Game Over', 110, 100);
-          ctx.closePath();
-          clearInterval(interval);
+          playerLives--;
+
+          if (!playerLives) {
+            ctx.beginPath();
+            ctx.font = "50px Arial";
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 10;
+            ctx.strokeText('Game Over', 110, 100);
+            ctx.fillStyle = "#FF2211";
+            ctx.fillText('Game Over', 110, 100);
+            ctx.closePath();
+            clearInterval(interval);
+          } else {
+            x = canvas.width/2;
+            y = canvas.height - 30;
+            dx = 2;
+            dy = -2;
+            paddleX = (canvas.width - paddleWidth) / 2;
+          }
         }
       }
 
