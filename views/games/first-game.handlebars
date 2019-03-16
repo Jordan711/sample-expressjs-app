@@ -45,6 +45,8 @@
     var brickOffSetTop = 30;
     var brickOffsetLeft = 30;
 
+     var animationFrame;
+
     var paused = false;
 
     var bricks = [];
@@ -67,11 +69,11 @@
 
     function pauseGame() {
       if (paused) {
-        interval = setInterval(draw, 10);
+        animationFrame = requestAnimationFrame(draw);
         document.getElementById('pause').innerHTML = 'Pause Game';
         paused = false;
       } else {
-        clearInterval(interval);
+        cancelAnimationFrame(animationFrame);
         document.getElementById('pause').innerHTML = 'Play';
         paused = true;
       }
@@ -195,6 +197,8 @@
       drawLives();
       drawScore();
 
+      animationFrame = requestAnimationFrame(draw);
+
       //If the ball reaches the top or bottom edge
       if ( y + dy < ballRadius){
         dy = -dy;
@@ -215,7 +219,8 @@
             ctx.fillStyle = "#FF2211";
             ctx.fillText('Game Over', 110, 100);
             ctx.closePath();
-            clearInterval(interval);
+            document.getElementById('pause').style.display = 'none';
+            cancelAnimationFrame(animationFrame);
           } else {
             x = canvas.width/2;
             y = canvas.height - 30;
@@ -235,7 +240,8 @@
         ctx.fillStyle = "Green";
         ctx.fillText('Yay you win!', 110, 100);
         ctx.closePath();
-        clearInterval(interval);
+        document.getElementById('pause').style.display = 'none';
+        cancelAnimationFrame(animationFrame);
       }
 
       //Bounce off the left and right side of wall
@@ -244,16 +250,17 @@
       }
 
       if (rightPressed && paddleX < canvas.width - paddleWidth) {
-        paddleX += 5;
+        paddleX += 10;
       }
       else if (leftPressed && paddleX > 0) {
-        paddleX -= 5;
+        paddleX -= 10;
       }
 
       x += dx;
       y += dy;
     }
 
-    var interval = setInterval(draw, 10);
+    draw();
+
   </script>
 </div>
