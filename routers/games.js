@@ -14,4 +14,11 @@ games.get('/first-game', function(req, res) {
   });
 });
 
+games.get('/spaceship', function(req, res) {
+  res.render('games/spaceship', {
+    pageTitle: 'Spaceship',
+    gamesActive: 'active'
+  });
+})
+
 module.exports = games;
