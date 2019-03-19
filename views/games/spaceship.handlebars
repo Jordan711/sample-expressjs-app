@@ -1,0 +1,48 @@
+<style>
+  * {padding: 0; margin: 0;}
+  canvas {background: #eee; display: block;}
+</style>
+
+<div class='container'>
+
+  <canvas id='spaceshipGame' width='480' height='320'></canvas>
+
+  <script>
+    var lives = 3;
+    var score = 0;
+    var shipX = 0;
+    var shipY = 0;
+    var shipRadius = 10;
+
+    var animationFrame;
+
+    var canvas = document.getElementById('spaceshipGame');
+    var ctx = canvas.getContext('2d');
+
+    document.addEventListener('mousemove', mouseMoveHandler, false);
+
+    function drawShip() {
+      ctx.beginPath();
+      ctx.arc(shipX, shipY, shipRadius, 0, Math.PI*2);
+      ctx.fillStyle = "#AABB22";
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function mouseMoveHandler(e) {
+      shipX = e.clientX - canvas.offsetLeft;
+      shipY = e.clientY - canvas.offsetTop;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      drawShip();
+      animationFrame = requestAnimationFrame(draw);
+      console.log(shipX + ',' + shipY);
+    }
+
+    draw();
+
+  </script>
+</div>
