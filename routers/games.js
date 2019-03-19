@@ -17,7 +17,8 @@ games.get('/first-game', function(req, res) {
 games.get('/spaceship', function(req, res) {
   res.render('games/spaceship', {
     pageTitle: 'Spaceship',
-    gamesActive: 'active'
+    gamesActive: 'active',
+    layout: 'game'
   });
 })
 
