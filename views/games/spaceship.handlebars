@@ -3,46 +3,94 @@
   canvas {background: #eee; display: block;}
 </style>
 
-<div class='container'>
-
-  <canvas id='spaceshipGame' width='480' height='320'></canvas>
-
-  <script>
-    var lives = 3;
-    var score = 0;
-    var shipX = 0;
-    var shipY = 0;
-    var shipRadius = 10;
-
-    var animationFrame;
-
-    var canvas = document.getElementById('spaceshipGame');
-    var ctx = canvas.getContext('2d');
-
-    document.addEventListener('mousemove', mouseMoveHandler, false);
-
-    function drawShip() {
-      ctx.beginPath();
-      ctx.arc(shipX, shipY, shipRadius, 0, Math.PI*2);
-      ctx.fillStyle = "#AABB22";
-      ctx.fill();
-      ctx.closePath();
-    }
-
-    function mouseMoveHandler(e) {
-      shipX = e.clientX - canvas.offsetLeft;
-      shipY = e.clientY - canvas.offsetTop;
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      drawShip();
-      animationFrame = requestAnimationFrame(draw);
-      console.log(shipX + ',' + shipY);
-    }
-
-    draw();
-
-  </script>
+<div style='padding: 20px;'>
+<canvas class='gameScreen' id='spaceshipGame' width='480' height='320' ></canvas>
 </div>
+
+<script>
+  var canvas = document.getElementById('spaceshipGame');
+  var ctx = canvas.getContext('2d');
+
+  var lives = 3;
+  var score = 0;
+  var shipX = canvas.width/2;
+  var shipY = canvas.height/2;
+  var shipRadius = 20;
+  var shipInnerRadius = 10;
+
+  var goldRadius = 10;
+  var goldX = Math.random() * canvas.width;
+  var goldY = Math.random() * canvas.height;
+
+  var asteroidRadius = 5;
+  var asteroids = [];
+  var asteroidX = canvas.width/2;
+  var asteroidY = canvas.height/2;
+
+  var asteroidDX = 2;
+  var asteroidDY = -2;
+
+  var animationFrame;
+
+
+  document.addEventListener('mousemove', mouseMoveHandler, false);
+
+  function drawShip() {
+    ctx.beginPath();
+    ctx.arc(shipX, shipY , shipRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#CCCCFF";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(shipX, shipY, shipInnerRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#E7F118";
+    ctx.fill();
+    ctx.closePath();
+
+  }
+
+  function drawAsteroid() {
+    ctx.beginPath();
+    ctx.arc(asteroidX, asteroidY , asteroidRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#666";
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  function drawGold() {
+    ctx.beginPath();
+    ctx.arc(goldX, goldY, goldRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#FFF800";
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  function mouseMoveHandler(e) {
+    shipX = e.clientX - canvas.offsetLeft;
+    shipY = e.clientY - canvas.offsetTop;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (asteroidX + asteroidDX > canvas.width || asteroidX + asteroidDX < 0) {
+      asteroidDX = -asteroidDX;
+    }
+
+    if (asteroidY + asteroidDY > canvas.height || asteroidY + asteroidDY < 0) {
+      asteroidDY = -asteroidDY;
+    }
+
+    asteroidX += asteroidDX;
+    asteroidY += asteroidDY;
+
+    drawShip();
+    drawAsteroid();
+    drawGold();
+    animationFrame = requestAnimationFrame(draw);
+  }
+
+  draw();
+
+</script>
