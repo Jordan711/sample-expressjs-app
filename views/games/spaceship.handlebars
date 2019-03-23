@@ -85,6 +85,14 @@
     ctx.closePath();
   }
 
+  function asteroidCollision(){
+    if ((asteroidX > shipX - shipRadius - 2) && (asteroidX < shipX + shipRadius - 2)) {
+      if ((asteroidY > shipY - shipRadius - 2) && (asteroidY < shipY + shipRadius - 2)) {
+        console.log('hit');
+      }
+    }
+  }
+
   function mouseMoveHandler(e) {
     shipX = e.clientX - canvas.offsetLeft;
     shipY = e.clientY - canvas.offsetTop;
@@ -107,6 +115,7 @@
     drawShip();
     drawAsteroid();
     drawGold();
+    asteroidCollision();
     animationFrame = requestAnimationFrame(draw);
   }
 
