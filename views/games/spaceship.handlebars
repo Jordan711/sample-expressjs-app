@@ -24,14 +24,33 @@
 
   var asteroidRadius = 5;
   var asteroids = [];
-  var asteroidX = canvas.width/2;
-  var asteroidY = canvas.height/2;
+  var asteroidX;
+  var asteroidY;
 
   var asteroidDX = 2;
   var asteroidDY = -2;
 
   var animationFrame;
 
+  //Initialize asteroid coords
+  var nonMatchX = false;
+  var nonMatchY = false;
+
+  while(!nonMatchX) {
+    var candidateX = Math.random() * canvas.width;
+    if ((candidateX < shipX - shipRadius + 50) || (candidateX > shipX + shipRadius + 50)) {
+      asteroidX = candidateX;
+      nonMatchX = true;
+    }
+  }
+
+  while(!nonMatchY) {
+    var candidateY = Math.random() * canvas.height;
+    if ((candidateY < shipY - shipRadius + 50) || (candidateY > shipY + shipRadius + 50)) {
+      asteroidY = candidateY;
+      nonMatchY = true;
+    }
+  }
 
   document.addEventListener('mousemove', mouseMoveHandler, false);
 
