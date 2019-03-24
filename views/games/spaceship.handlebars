@@ -18,11 +18,11 @@
   var shipRadius = 20;
   var shipInnerRadius = 10;
 
-  var goldRadius = 10;
+  var goldRadius = 5;
   var goldX = Math.random() * canvas.width;
   var goldY = Math.random() * canvas.height;
 
-  var asteroidRadius = 5;
+  var asteroidRadius = 15;
   var asteroids = [];
   var asteroidX;
   var asteroidY;
@@ -33,22 +33,27 @@
   var animationFrame;
 
   //Initialize asteroid coords
-  var nonMatchX = false;
-  var nonMatchY = false;
+  var nonMatchX;;
+  var nonMatchY;
 
-  while(!nonMatchX) {
-    var candidateX = Math.random() * canvas.width;
-    if ((candidateX < shipX - shipRadius + 50) || (candidateX > shipX + shipRadius + 50)) {
-      asteroidX = candidateX;
-      nonMatchX = true;
+  function randomizeAsteroidCoords() {
+    nonMatchX = false;
+    nonMatchY = false;
+
+    while(!nonMatchX) {
+      var candidateX = Math.random() * canvas.width;
+      if ((candidateX < shipX - shipRadius + 50) || (candidateX > shipX + shipRadius + 50)) {
+        asteroidX = candidateX;
+        nonMatchX = true;
+      }
     }
-  }
 
-  while(!nonMatchY) {
-    var candidateY = Math.random() * canvas.height;
-    if ((candidateY < shipY - shipRadius + 50) || (candidateY > shipY + shipRadius + 50)) {
-      asteroidY = candidateY;
-      nonMatchY = true;
+    while(!nonMatchY) {
+      var candidateY = Math.random() * canvas.height;
+      if ((candidateY < shipY - shipRadius + 50) || (candidateY > shipY + shipRadius + 50)) {
+        asteroidY = candidateY;
+        nonMatchY = true;
+      }
     }
   }
 
@@ -91,10 +96,27 @@
     ctx.fillText("Score: "+score, 8, 20);
   }
 
+  function drawLives() {
+    ctx.font = '16px Arial';
+    ctx.fillStyle = '#0095DD';
+    ctx.fillText("Lives: "+lives, canvas.width - 65, 20);
+
+  }
+
   function asteroidCollision(){
     if ((asteroidX > shipX - shipRadius - 2) && (asteroidX < shipX + shipRadius - 2)) {
       if ((asteroidY > shipY - shipRadius - 2) && (asteroidY < shipY + shipRadius - 2)) {
-        console.log('hit');
+        lives -= 1;
+
+        if (lives == 0) {
+          cancelAnimationFrame(animationFrame);
+
+          ctx.font = '16px Arial';
+          ctx.fillStyle = '#0095DD';
+          ctx.fillText("Game Over", 65, 88);
+        } else {
+          randomizeAsteroidCoords();
+        }
       }
     }
   }
@@ -119,6 +141,7 @@
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    animationFrame = requestAnimationFrame(draw);
 
     if (asteroidX + asteroidDX > canvas.width || asteroidX + asteroidDX < 0) {
       asteroidDX = -asteroidDX;
@@ -131,14 +154,15 @@
     asteroidX += asteroidDX;
     asteroidY += asteroidDY;
 
-    drawScore();
     drawShip();
     drawAsteroid();
     drawGold();
     asteroidCollision();
     collectGold();
-    animationFrame = requestAnimationFrame(draw);
+    drawScore();
+    drawLives();
   }
+  randomizeAsteroidCoords();
 
   draw();
 
