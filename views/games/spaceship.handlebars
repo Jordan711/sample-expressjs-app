@@ -85,10 +85,26 @@
     ctx.closePath();
   }
 
+  function drawScore() {
+    ctx.font = '16px Arial';
+    ctx.fillStyle = '#0095DD';
+    ctx.fillText("Score: "+score, 8, 20);
+  }
+
   function asteroidCollision(){
     if ((asteroidX > shipX - shipRadius - 2) && (asteroidX < shipX + shipRadius - 2)) {
       if ((asteroidY > shipY - shipRadius - 2) && (asteroidY < shipY + shipRadius - 2)) {
         console.log('hit');
+      }
+    }
+  }
+
+  function collectGold(){
+    if ((goldX > shipX - shipRadius - 2) && (goldX < shipX + shipRadius - 2)) {
+      if ((goldY > shipY - shipRadius - 2) && (goldY < shipY + shipRadius - 2)) {
+        score += 1;
+        goldX = Math.random() * canvas.width;
+        goldY = Math.random() * canvas.height;
       }
     }
   }
@@ -112,10 +128,12 @@
     asteroidX += asteroidDX;
     asteroidY += asteroidDY;
 
+    drawScore();
     drawShip();
     drawAsteroid();
     drawGold();
     asteroidCollision();
+    collectGold();
     animationFrame = requestAnimationFrame(draw);
   }
 
